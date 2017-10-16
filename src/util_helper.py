@@ -7,7 +7,7 @@ def lrelu(x, rate=0.1):
     return tf.maximum(tf.minimum(x * rate, 0), x)
 
 # relu activation
-# @param kernel_shape == filter shape,  which is [filter_height, filter_width, ...]
+# @param kernel_shape == filter shape,  which is [batch_samples, filter_height, filter_width, ...]
 def conv_bn_relu(input, kernel_shape, bias_shape):
     # Create variable named "weights".
     weights = tf.get_variable("weights", kernel_shape,

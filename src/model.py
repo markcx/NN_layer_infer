@@ -62,15 +62,12 @@ with tf.Session() as sess:
         i_ = e % (episodes - 2)
         xs, ys = next_batch(input_xs, i_, batch_size=5)
         # print(e, xs, ys)
-        # xs_norm = skPre.MinMaxScaler().fit(xs[np.newaxis, :])
-        # ys_norm = skPre.MinMaxScaler().fit(ys[np.newaxis, :])
         xs_norm = (xs - xs.min(axis=0)) / (xs.max(axis=0) - xs.min(axis=0))
         ys_norm = (ys - ys.min(axis=0)) / (ys.max(axis=0) - ys.min(axis=0))
         # X_scaled = xs_norm * (max(xs) - min(xs)) + min(xs)
         # print(e, x_norm, X_scaled)
         xs = xs_norm[np.newaxis, np.newaxis, :, np.newaxis]
         ys = ys_norm[np.newaxis, np.newaxis, :, np.newaxis]
-        # # print(xs.shape)
         _, _loss = sess.run([train_opt, loss], feed_dict={x: xs, y_target: ys})
         print("{:^7}{:^7.2f}".format(e , _loss))
         if e % 10 == 0 :
